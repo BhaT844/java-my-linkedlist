@@ -4,7 +4,6 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 interface List<T> {
-	
 	T front();
 	
 	T back();
@@ -57,9 +56,9 @@ class Node<T> {
 }
 
 class MyLinkedList<T> implements List<T> {
-	private int size;
 	private Node<T> head;
 	private Node<T> tail;
+	private int size;
 	
 	@Override
 	public T get(int index) {
@@ -84,7 +83,7 @@ class MyLinkedList<T> implements List<T> {
 	public boolean isEmpty() {
 		return size() == 0;
 	}
-	
+
 	@Override
 	public T remove(int index) {
 		Node<T> node = head;
@@ -109,6 +108,8 @@ class MyLinkedList<T> implements List<T> {
 		} else {			
 			node.getNextNode().setPreNode(node.getPreNode());
 		}
+		
+		size -= 1;
 
 		return node.getValue();
 	}
@@ -116,7 +117,7 @@ class MyLinkedList<T> implements List<T> {
 	@Override
 	public T front() throws IndexOutOfBoundsException {
 		if (head == null) {
-			throw new IndexOutOfBoundsException("front is null");
+			throw new IndexOutOfBoundsException("head is null");
 		}
 		return head.getValue();
 	}
@@ -124,7 +125,7 @@ class MyLinkedList<T> implements List<T> {
 	@Override
 	public T back() throws IndexOutOfBoundsException {
 		if (tail == null) {
-			throw new IndexOutOfBoundsException("back is null");
+			throw new IndexOutOfBoundsException("tail is null");
 		}
 		return tail.getValue();
 	}
@@ -152,22 +153,32 @@ class MyLinkedList<T> implements List<T> {
 	@Override
 	public T popFront() throws IndexOutOfBoundsException {
 		if (head == null) {
-			throw new IndexOutOfBoundsException("front is null");
+			throw new IndexOutOfBoundsException("head is null");
 		}
 		T answer = head.getValue();
 		head = head.getNextNode();
-		if (head != null) { head.setPreNode(null); }
+		if (head != null) {
+			head.setPreNode(null);
+		} else {
+			tail = null;
+		}
+		size -= 1;
 		return answer;
 	}
-	
+
 	@Override
 	public T popBack() throws IndexOutOfBoundsException {
-		if (head == null) {
-			throw new IndexOutOfBoundsException("back is null");
+		if (tail == null) {
+			throw new IndexOutOfBoundsException("tail is null");
 		}
 		T answer = tail.getValue();
 		tail = tail.getPreNode();
-		if (head != null) { head.setNextNode(null); }
+		if (tail != null) {
+			tail.setNextNode(null);
+		} else {
+			head = null;
+		}
+		size -= 1;
 		return answer;
 	}
 }
