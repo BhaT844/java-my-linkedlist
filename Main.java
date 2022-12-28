@@ -62,6 +62,10 @@ class MyLinkedList<T> implements List<T> {
 	
 	@Override
 	public T get(int index) {
+		if (head == null) {
+			throw new IndexOutOfBoundsException("head is null");
+		}
+
 		Node<T> node = head;
 		
 		for (int i = 0; i < index; i++) {
@@ -73,12 +77,12 @@ class MyLinkedList<T> implements List<T> {
 		
 		return node.getValue();
 	}
-	
+
 	@Override
 	public int size() {
 		return size;
 	}
-	
+
 	@Override
 	public boolean isEmpty() {
 		return size() == 0;
@@ -86,6 +90,10 @@ class MyLinkedList<T> implements List<T> {
 
 	@Override
 	public T remove(int index) {
+		if (head == null) {
+			throw new IndexOutOfBoundsException("head is null");
+		}
+
 		Node<T> node = head;
 		
 		for (int i = 0; i < index; i++) {
